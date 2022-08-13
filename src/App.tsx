@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Button from "@mui/material/Button/Button";
+import { Link, Route, Routes } from "react-router-dom";
+import "./App.css";
+import EmployeesListPage from "./employeesList/EmployeesListPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <>
+      <div className="App">
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          <Link to="/employeesList">
+            <Button variant="contained">Lista pracowników</Button>
+          </Link>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      </div>
+      <Routes>
+        <Route path="/employeesList" element={<EmployeesListPage />} />
+      </Routes>
+    </>
   );
 }
 
