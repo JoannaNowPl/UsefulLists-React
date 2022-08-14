@@ -4,58 +4,25 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import {
   Box,
   Checkbox,
   FormControlLabel,
-  IconButton,
   Switch,
-  TableSortLabel,
-  Toolbar,
-  Tooltip,
-  Typography,
 } from "@mui/material";
-import { alpha } from "@mui/material/styles";
-import { visuallyHidden } from "@mui/utils";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
-
-interface HeadCell {
-  disablePadding: boolean;
-  id: keyof Data;
-  label: string;
-  numeric: boolean;
-  minWidth?: number;
-}
-
-const headCells: readonly HeadCell[] = [
-  { id: "lastName", label: "Nazwisko", numeric: false, disablePadding: false },
-  { id: "firstName", label: "Imię", numeric: false, disablePadding: false },
-  {
-    id: "position",
-    label: "Stanowisko",
-    numeric: false,
-    disablePadding: false,
-  },
-  { id: "pesel", label: "PESEL", numeric: false, disablePadding: false },
-];
-
-interface Data {
-  lastName: string;
-  firstName: string;
-  position: string;
-  pesel: string;
-}
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
+import { IEmployeeMainData } from "./IEmployeeMainData";
+import { EmployeesMainTableHead } from "./EmployeesMainTableHead";
+import { EmployeesMainTableToolbar } from "./EmployeesMainTableToolbar";
 
 function createData(
   lastName: string,
   firstName: string,
   position: string,
   pesel: string
-): Data {
+): IEmployeeMainData {
   return { lastName, firstName, position, pesel };
 }
 
@@ -113,130 +80,10 @@ function stableSort<T>(
   });
   return stabilizedThis.map((el) => el[0]);
 }
-
-interface EnhancedTableProps {
-  numSelected: number;
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof Data
-  ) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-}
-
-function EnhancedTableHead(props: EnhancedTableProps) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
-  const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
-  return (
-    <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
-
-interface EnhancedTableToolbarProps {
-  numSelected: number;
-}
-
-const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Nutrition
-        </Typography>
-      )}
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
-  );
-};
-
-export default function EnhancedTable() {
+export default function EmployeesListPage() {
   const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("lastName");
+  const [orderBy, setOrderBy] =
+    React.useState<keyof IEmployeeMainData>("lastName");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -244,7 +91,7 @@ export default function EnhancedTable() {
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Data
+    property: keyof IEmployeeMainData
   ) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -276,7 +123,6 @@ export default function EnhancedTable() {
         selected.slice(selectedIndex + 1)
       );
     }
-
     setSelected(newSelected);
   };
 
@@ -295,7 +141,7 @@ export default function EnhancedTable() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
+  const isSelected = (pesel: string) => selected.indexOf(pesel) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -304,14 +150,14 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EmployeesMainTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
             size={dense ? "small" : "medium"}
           >
-            <EnhancedTableHead
+            <EmployeesMainTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -351,6 +197,9 @@ export default function EnhancedTable() {
                       <TableCell align="left">{row.firstName}</TableCell>
                       <TableCell align="left">{row.position}</TableCell>
                       <TableCell align="left">{row.pesel}</TableCell>
+                      <TableCell align="left">
+                        <DoubleArrowIcon color="disabled" />
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -383,70 +232,3 @@ export default function EnhancedTable() {
     </Box>
   );
 }
-
-// export default function EmployeesListPage(): JSX.Element {
-//   const [page, setPage] = React.useState(0);
-//   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-//   const handleChangePage = (event: unknown, newPage: number) => {
-//     setPage(newPage);
-//   };
-
-//   const handleChangeRowsPerPage = (
-//     event: React.ChangeEvent<HTMLInputElement>
-//   ) => {
-//     setRowsPerPage(+event.target.value);
-//     setPage(0);
-//   };
-
-//   return (
-//     <Paper sx={{ width: "80%", overflow: "hidden" }}>
-//       <TableContainer sx={{ maxHeight: 440 }}>
-//         <Table stickyHeader aria-label="sticky table">
-//           <TableHead>
-//             <TableRow>
-//               {columns.map((column) => (
-//                 <TableCell
-//                   key={column.id}
-//                   align={column.align}
-//                   style={{ minWidth: column.minWidth }}
-//                 >
-//                   {column.headerName}
-//                 </TableCell>
-//               ))}
-//             </TableRow>
-//           </TableHead>
-//           <TableBody>
-//             {rows
-//               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-//               .map((row) => {
-//                 return (
-//                   <TableRow hover role="checkbox" tabIndex={-1} key={row.pesel}>
-//                     {columns.map((column) => {
-//                       const value = row[column.id];
-//                       return (
-//                         <TableCell key={column.id} align={column.align}>
-//                           {column.format && typeof value === "number"
-//                             ? column.format(value)
-//                             : value}
-//                         </TableCell>
-//                       );
-//                     })}
-//                   </TableRow>
-//                 );
-//               })}
-//           </TableBody>
-//         </Table>
-//       </TableContainer>
-//       <TablePagination
-//         rowsPerPageOptions={[10, 25, 100]}
-//         component="div"
-//         count={rows.length}
-//         rowsPerPage={rowsPerPage}
-//         page={page}
-//         onPageChange={handleChangePage}
-//         onRowsPerPageChange={handleChangeRowsPerPage}
-//       />
-//     </Paper>
-//   );
-// }
