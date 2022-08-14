@@ -10,11 +10,11 @@ import { IEmployeesMainTableHeadProps } from "./IEmployeesMainTableHeadProps";
 import { visuallyHidden } from "@mui/utils";
 
 const headCells: readonly IEmployeesMainHeadCell[] = [
-  { id: "lastName", label: "Nazwisko", numeric: false, disablePadding: false },
-  { id: "firstName", label: "Imię", numeric: false, disablePadding: false },
+  { id: "lastName", label: "NAZWISKO", numeric: false, disablePadding: false },
+  { id: "firstName", label: "IMIĘ", numeric: false, disablePadding: false },
   {
     id: "position",
-    label: "Stanowisko",
+    label: "STANOWISKO",
     numeric: false,
     disablePadding: false,
   },
@@ -36,9 +36,9 @@ export function EmployeesMainTableHead(props: IEmployeesMainTableHeadProps) {
         onRequestSort(event, property);
       };
     return (
-      <TableHead>
-        <TableRow>
-          <TableCell padding="checkbox">
+      <TableHead >
+        <TableRow >
+          <TableCell padding="checkbox" >
             <Checkbox
               color="primary"
               indeterminate={numSelected > 0 && numSelected < rowCount}

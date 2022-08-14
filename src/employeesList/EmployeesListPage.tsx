@@ -6,16 +6,12 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import {
-  Box,
-  Checkbox,
-  FormControlLabel,
-  Switch,
-} from "@mui/material";
+import { Box, Button, Checkbox, FormControlLabel, IconButton, Switch } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { IEmployeeMainData } from "./IEmployeeMainData";
 import { EmployeesMainTableHead } from "./EmployeesMainTableHead";
 import { EmployeesMainTableToolbar } from "./EmployeesMainTableToolbar";
+import { Link } from "react-router-dom";
 
 function createData(
   lastName: string,
@@ -198,7 +194,7 @@ export default function EmployeesListPage() {
                       <TableCell align="left">{row.position}</TableCell>
                       <TableCell align="left">{row.pesel}</TableCell>
                       <TableCell align="left">
-                        <DoubleArrowIcon color="disabled" />
+                        <IconButton size="small" aria-label="dane szczegółowe" component={Link} to={"/employeeDetails"} color="secondary"><DoubleArrowIcon fontSize="small"/></IconButton>
                       </TableCell>
                     </TableRow>
                   );
@@ -227,7 +223,7 @@ export default function EmployeesListPage() {
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
+        label="Wąskie wiersze"
       />
     </Box>
   );
