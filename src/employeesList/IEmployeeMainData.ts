@@ -1,7 +1,7 @@
 export interface IEmployeeMainData {
-    lastName: string;
-    firstName: string;
-    position: string;
-    pesel: string;
+  readonly lastName: string;
+  readonly firstName: string;
+  readonly position: string;
+  readonly pesel: string;
   }
   
