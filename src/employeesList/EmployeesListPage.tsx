@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import { EmployeesMainTablePagination } from "./EmployeesMainTablePagination";
 import { IEmployeesData } from "./EmployeesData";
 import { BackButton } from "../BackButton";
+import "./EmployeesListPage.css";
 
 export interface IEmployeesListPageProps {
   employees: IEmployeesData[];
@@ -134,99 +135,99 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
       ? Math.max(0, (1 + page) * rowsPerPage - props.employees.length)
       : 0;
 
+  const handleDeleteEmpClick = () => {}
+
   return (
-    <div>
-      <BackButton to={"/"}/>
-
-   
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <EmployeesMainTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            <EmployeesMainTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={props.employees.length}
-            />
-            <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+    <div className="EmployeesListPage">
+      <BackButton to={"/"} />
+      <Box sx={{ width: "100%" }} className="Box">
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          <EmployeesMainTableToolbar numSelected={selected.length} onDeleteEmpClick={handleDeleteEmpClick} />
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              <EmployeesMainTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={props.employees.length}
+              />
+              <TableBody>
+                {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                 employees.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(props.employees, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.pesel);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+                {stableSort(props.employees, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row.pesel);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.pesel)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.pesel}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell align="left">{row.lastName}</TableCell>
-                      <TableCell align="left">{row.firstName}</TableCell>
-                      <TableCell align="left">{row.position}</TableCell>
-                      <TableCell align="left">{row.pesel}</TableCell>
-                      <TableCell align="left">
-                        <IconButton
-                          size="small"
-                          aria-label="dane szczegółowe"
-                          component={Link}
-                          to={`/employeeDetails/${row.pesel}`}
-                          color="secondary"
-                        >
-                          <DoubleArrowIcon fontSize="small" />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <EmployeesMainTablePagination
-          employees={props.employees}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleClick(event, row.pesel)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row.pesel}
+                        selected={isItemSelected}
+                      >
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            color="primary"
+                            checked={isItemSelected}
+                            inputProps={{
+                              "aria-labelledby": labelId,
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell align="left">{row.lastName}</TableCell>
+                        <TableCell align="left">{row.firstName}</TableCell>
+                        <TableCell align="left">{row.position}</TableCell>
+                        <TableCell align="left">{row.pesel}</TableCell>
+                        <TableCell align="left">
+                          <IconButton
+                            size="small"
+                            aria-label="dane szczegółowe"
+                            component={Link}
+                            to={`/employeeDetails/${row.pesel}`}
+                            color="secondary"
+                          >
+                            <DoubleArrowIcon fontSize="small" />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <EmployeesMainTablePagination
+            employees={props.employees}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </Paper>
+        <FormControlLabel
+          control={<Switch checked={dense} onChange={handleChangeDense} />}
+          label="Wąskie wiersze"
         />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Wąskie wiersze"
-      />
-    </Box>
+      </Box>
     </div>
   );
 }

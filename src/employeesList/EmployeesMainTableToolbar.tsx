@@ -8,7 +8,7 @@ import { IEmployeesMainTableToolbarProps } from "./IEmployeesMainTableToolbarPro
 import { alpha } from "@mui/material/styles";
 
 export function EmployeesMainTableToolbar(props: IEmployeesMainTableToolbarProps)  {
-    const { numSelected } = props;
+    const { numSelected, onDeleteEmpClick } = props;
   
     return (
       <Toolbar
@@ -31,7 +31,7 @@ export function EmployeesMainTableToolbar(props: IEmployeesMainTableToolbarProps
             variant="subtitle1"
             component="div"
           >
-            {numSelected} selected
+            Wybrano {numSelected} 
           </Typography>
         ) : (
           <Typography
@@ -39,18 +39,19 @@ export function EmployeesMainTableToolbar(props: IEmployeesMainTableToolbarProps
             variant="h6"
             id="tableTitle"
             component="div"
+            fontWeight={700}
           >
-            Lista pracowników
+            LISTA PRACOWNIKÓW
           </Typography>
         )}
         {numSelected > 0 ? (
-          <Tooltip title="Delete">
+          <Tooltip title="Usuń">
             <IconButton>
-              <DeleteIcon />
+              <DeleteIcon onClick={onDeleteEmpClick} />
             </IconButton>
           </Tooltip>
         ) : (
-          <Tooltip title="Filter list">
+          <Tooltip title="Filtr">
             <IconButton>
               <FilterListIcon />
             </IconButton>

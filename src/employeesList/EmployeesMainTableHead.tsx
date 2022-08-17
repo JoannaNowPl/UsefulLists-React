@@ -8,6 +8,7 @@ import { IEmployeeMainData } from "./IEmployeeMainData";
 import { IEmployeesMainHeadCell } from "./IEmployeesMainHeadCell";
 import { IEmployeesMainTableHeadProps } from "./IEmployeesMainTableHeadProps";
 import { visuallyHidden } from "@mui/utils";
+import "./EmployeesListPage.css";
 
 const headCells: readonly IEmployeesMainHeadCell[] = [
   { id: "lastName", label: "NAZWISKO", numeric: false, disablePadding: false },
@@ -36,7 +37,7 @@ export function EmployeesMainTableHead(props: IEmployeesMainTableHeadProps) {
         onRequestSort(event, property);
       };
     return (
-      <TableHead >
+      <TableHead className="TableHead">
         <TableRow >
           <TableCell padding="checkbox" >
             <Checkbox

@@ -6,7 +6,7 @@ export function MainPage(): JSX.Element {
   return (
     <div className="mainPage">
       <p>
-            <Button variant="contained" component={Link} to={"/employeesList"}>Lista pracowników</Button>
+            <Button variant="contained" color="secondary" component={Link} to={"/employeesList"}>Lista pracowników</Button>
        
       </p>
     </div>

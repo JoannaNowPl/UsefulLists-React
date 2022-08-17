@@ -4,6 +4,7 @@ import { BackButton } from "../BackButton";
 import { EmployeeAdditionalData } from "./EmployeeAdditionalData";
 import { EmployeeMainData } from "./EmployeeMainData";
 import { IEmployeesData } from "./EmployeesData";
+import "./EmployeeDetailsPage.css";
 
 
 // To finish:
@@ -25,12 +26,12 @@ export function EmployeeDetailsPage(
         <EmployeeAdditionalData employeeAdditionalData={props.employees[index]}/>
       );
     }
-    return <Button component={Link} to="additionalData"> Dodaj dane</Button>
+    return <Button color="secondary" component={Link} to="addDataForm"> Dodaj dane</Button>
     
   }
 
   return (
-    <div>
+    <div className="EmployeeDetailsPage">
       <BackButton to={"/employeesList"}/>
       <h3>Dane szczegółowe</h3>
       <EmployeeMainData employeeMainData={props.employees[index]} />
