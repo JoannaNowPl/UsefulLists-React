@@ -18,9 +18,11 @@ import { EmployeesMainTableHead } from "./EmployeesMainTableHead";
 import { EmployeesMainTableToolbar } from "./EmployeesMainTableToolbar";
 import { Link } from "react-router-dom";
 import { EmployeesMainTablePagination } from "./EmployeesMainTablePagination";
+import { IEmployeesData } from "./EmployeesData";
+import { BackButton } from "../BackButton";
 
 export interface IEmployeesListPageProps {
-  employees: IEmployeeMainData[];
+  employees: IEmployeesData[];
 }
 
 export default function EmployeesListPage(props: IEmployeesListPageProps) {
@@ -133,6 +135,10 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
       : 0;
 
   return (
+    <div>
+      <BackButton to={"/"}/>
+
+   
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EmployeesMainTableToolbar numSelected={selected.length} />
@@ -221,5 +227,6 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
         label="Wąskie wiersze"
       />
     </Box>
+    </div>
   );
 }
