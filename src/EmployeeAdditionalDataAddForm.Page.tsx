@@ -10,14 +10,18 @@ import "./EmployeeAdditionalDataAddFormPage.css";
 
 export interface IEmployeeAdditionalDataProps {
   employees: IEmployeesData[];
-  handleSubmit: (idPesel: string, newData: IEmployeeAdditionalData ) => void;
+  handleAddEmplData: (
+    idPesel: string,
+    newData: IEmployeeAdditionalData
+  ) => void;
 }
 
-export function EmployeeAdditionalDataAddFormPage(props:IEmployeeAdditionalDataProps): JSX.Element {
-
+export function EmployeeAdditionalDataAddFormPage(
+  props: IEmployeeAdditionalDataProps
+): JSX.Element {
   const params: Readonly<Params<string>> = useParams();
   const idPesel: string = params.id || "";
- 
+
   const validationSchema = yup.object({
     streetWithNumber: yup
       .string()
@@ -54,19 +58,26 @@ export function EmployeeAdditionalDataAddFormPage(props:IEmployeeAdditionalDataP
       phone: "",
       email: "",
     },
-    
+
     validationSchema: validationSchema,
 
-    onSubmit: (values) => {
-      console.log(values);     
-      console.log(idPesel);
-     
+    onSubmit: (_values, actions) => {
+      actions.setSubmitting(false);
+      actions.resetForm({
+        values: {
+          streetWithNumber: "",
+          postCode: "",
+          city: "",
+          phone: "",
+          email: "",
+        },
+      });
     },
   });
 
   return (
     <div>
-      <BackButton to={"/employeesList"} />
+      <BackButton to={`/employeeDetails/${idPesel}`} />
       <br />
       <br />
       <form onSubmit={formik.handleSubmit}>
@@ -126,7 +137,13 @@ export function EmployeeAdditionalDataAddFormPage(props:IEmployeeAdditionalDataP
           helperText={formik.touched.email && formik.errors.email}
         />
 
-        <Button color="primary" variant="contained" fullWidth type="submit" onClick={() => props.handleSubmit (idPesel, formik.values)}>
+        <Button
+          color="primary"
+          variant="contained"
+          fullWidth
+          type="submit"
+          onClick={() => props.handleAddEmplData(idPesel, formik.values)}
+        >
           Zatwierdź
         </Button>
       </form>
