@@ -7,8 +7,6 @@ import { IEmployeesData } from "./EmployeesData";
 import "./EmployeeDetailsPage.css";
 
 
-// To finish:
-
 export interface IEmployeeDetailsPageProps {
   employees: IEmployeesData[];
 }
@@ -26,7 +24,7 @@ export function EmployeeDetailsPage(
         <EmployeeAdditionalData employeeAdditionalData={props.employees[index]}/>
       );
     }
-    return <Button color="secondary" component={Link} to="addDataForm"> Dodaj dane</Button>
+    return <Button color="secondary" component={Link} to= {`/addDataForm/${idPesel}`} > Dodaj dane</Button>
     
   }
 

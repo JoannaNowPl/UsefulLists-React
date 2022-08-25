@@ -1,18 +1,19 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import { EmployeeAdditionalDataAddFormPage } from "./EmployeeAdditionalDataAddForm.Page";
 import { EmployeeDetailsPage } from "./employeesList/EmployeeDetailsPage";
 import { EmployeesData, IEmployeesData } from "./employeesList/EmployeesData";
 import EmployeesListPage from "./employeesList/EmployeesListPage";
-import { IEmployeeMainData } from "./employeesList/IEmployeeMainData";
+import { IEmployeeAdditionalData } from "./employeesList/IEmployeeAdditionalData";
 import { MainPage } from "./MainPage";
 
 
 function App() {  
 
-  const employeesDemoData:IEmployeesData [] = EmployeesData
+  const employeesDemoData:IEmployeesData [] = EmployeesData;
 
-  const [employeesMainData, setEmployeesMainData] = React.useState<IEmployeeMainData[]> (
+  const [employeesMainData, setEmployeesMainData] = React.useState<IEmployeesData[]> (
     employeesDemoData  
   )
 
@@ -58,13 +59,32 @@ const handleDeleteEmpClick = () => {
   setEmployeesMainData(updatedEmployeesMainData)
 }
 
-
+const handleAddEmplData = (idPesel:string, newData: IEmployeeAdditionalData) => {  
+  console.log(idPesel);
+  console.log(newData);
+  const updatedEmployeesMainData = [];
+  for (const el of employeesMainData) {
+    if (el.pesel===idPesel){
+      const updatedEmpl = {...el};
+      updatedEmpl.streetWithNumber=newData.streetWithNumber;
+      updatedEmpl.postCode=newData.postCode;
+      updatedEmpl.city=newData.city;
+      updatedEmpl.phone=newData.phone;
+      updatedEmpl.email=newData.email;
+      updatedEmployeesMainData.push(updatedEmpl);
+      continue;
+    }
+   updatedEmployeesMainData.push(el);
+  }
+  setEmployeesMainData(updatedEmployeesMainData)
+}
   return (
     <>    
       <Routes>
         <Route path = "/" element={<MainPage/>}/>
         <Route path="/employeesList" element={<EmployeesListPage employees={employeesMainData} selected={selected} handleSelectAllClick={handleSelectAllClick} handleClick={handleClick} onDeleteEmpClick={handleDeleteEmpClick }  />} />
         <Route path="/employeeDetails/:id" element={<EmployeeDetailsPage employees={employeesMainData}/>} />
+        <Route path="/addDataForm/:id" element={<EmployeeAdditionalDataAddFormPage employees={[]} handleSubmit={handleAddEmplData}/>} />
       </Routes>
     </>
   );
