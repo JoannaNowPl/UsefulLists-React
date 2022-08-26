@@ -1,11 +1,13 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { EmployeeAdditionalDataAddFormPage } from "./EmployeeAdditionalDataAddForm.Page";
+import { EmployeeAdditionalDataAddFormPage } from "./employeesList/EmployeeAdditionalDataAddForm.Page";
 import { EmployeeDetailsPage } from "./employeesList/EmployeeDetailsPage";
+import { EmployeeMainDataAddFormPage } from "./employeesList/EmployeeMainDataAddFormPage";
 import { EmployeesData, IEmployeesData } from "./employeesList/EmployeesData";
 import EmployeesListPage from "./employeesList/EmployeesListPage";
 import { IEmployeeAdditionalData } from "./employeesList/IEmployeeAdditionalData";
+import { IEmployeeMainData } from "./employeesList/IEmployeeMainData";
 import { MainPage } from "./MainPage";
 
 function App() {
@@ -25,7 +27,7 @@ function App() {
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
+  const handleSelectClick = (event: React.MouseEvent<unknown>, id: string):void => {
     const selectedIndex = selected.indexOf(id);
     let newSelected: readonly string[] = [];
 
@@ -44,19 +46,29 @@ function App() {
     setSelected(newSelected);
   };
 
-  const handleDeleteEmpClick = () => {
+  const handleDeleteEmpClick = ():void => {
     const updatedEmployeesMainData = [];
     for (const el of employeesMainData) {
       if (selected.includes(el.pesel)) continue;
       updatedEmployeesMainData.push(el);
     }
     setEmployeesMainData(updatedEmployeesMainData);
+    setSelected([]);
   };
+
+  const handleAddEmpl = (newEmpl:IEmployeeMainData):void => {
+    employeesMainData.push(newEmpl);
+    setEmployeesMainData(employeesMainData);
+  }
+
+
+
+
 
   const handleAddEmplData = (
     idPesel: string,
     newData: IEmployeeAdditionalData
-  ) => {
+  ):void => {
     const updatedEmployeesMainData = [];
     for (const el of employeesMainData) {
       if (el.pesel === idPesel) {
@@ -73,6 +85,8 @@ function App() {
     }
     setEmployeesMainData(updatedEmployeesMainData);
   };
+
+
   return (
     <>
       <Routes>
@@ -84,7 +98,7 @@ function App() {
               employees={employeesMainData}
               selected={selected}
               handleSelectAllClick={handleSelectAllClick}
-              handleClick={handleClick}
+              handleSelectClick={handleSelectClick}
               onDeleteEmpClick={handleDeleteEmpClick}
             />
           }
@@ -101,6 +115,10 @@ function App() {
               handleAddEmplData={handleAddEmplData}
             />
           }
+        />
+         <Route
+          path="/addEmployeeForm"
+          element={<EmployeeMainDataAddFormPage employees={employeesMainData} handleAddEmpl={handleAddEmpl} />}
         />
       </Routes>
     </>

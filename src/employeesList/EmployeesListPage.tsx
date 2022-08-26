@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import {
   Box,
+  Button,
   Checkbox,
   FormControlLabel,
   IconButton,
@@ -25,7 +26,7 @@ export interface IEmployeesListPageProps {
   employees: IEmployeeMainData[];
   selected: readonly string[];
   handleSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleClick: (event: React.MouseEvent<unknown>, id: string) => void;
+  handleSelectClick: (event: React.MouseEvent<unknown>, id: string) => void;
   onDeleteEmpClick:  () => void
 }
 
@@ -146,7 +147,7 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
                     <TableRow hover>
                       <TableCell padding="checkbox">
                         <Checkbox
-                          onClick={(event) => props.handleClick(event, row.pesel)}
+                          onClick={(event) => props.handleSelectClick(event, row.pesel)}
                           role="checkbox"
                           aria-checked={isItemSelected}
                           tabIndex={-1}
@@ -165,7 +166,7 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
                       <TableCell align="left">
                         <IconButton
                           size="small"
-                          aria-label="dane szczegółowe"
+                          aria-label="Dane szczegółowe"
                           component={Link}
                           to={`/employeeDetails/${row.pesel}`}
                           color="secondary"
@@ -200,6 +201,7 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Wąskie wiersze"
       />
+   
     </Box>
     </div>
   );

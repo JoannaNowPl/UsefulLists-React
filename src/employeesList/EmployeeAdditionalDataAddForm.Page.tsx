@@ -2,10 +2,10 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { BackButton } from "./BackButton";
-import { IEmployeesData } from "./employeesList/EmployeesData";
+import { BackButton } from "../BackButton";
+import { IEmployeesData } from "./EmployeesData";
 import { Params, useParams } from "react-router-dom";
-import { IEmployeeAdditionalData } from "./employeesList/IEmployeeAdditionalData";
+import { IEmployeeAdditionalData } from "./IEmployeeAdditionalData";
 import "./EmployeeAdditionalDataAddFormPage.css";
 
 export interface IEmployeeAdditionalDataProps {

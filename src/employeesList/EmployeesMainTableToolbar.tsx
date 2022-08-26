@@ -3,9 +3,10 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { IEmployeesMainTableToolbarProps } from "./IEmployeesMainTableToolbarProps";
 import { alpha } from "@mui/material/styles";
+import AddIcon from '@mui/icons-material/Add';
+import { Link } from "react-router-dom";
 
 export function EmployeesMainTableToolbar(props: IEmployeesMainTableToolbarProps)  {
     const { numSelected, onDeleteEmpClick } = props;
@@ -46,14 +47,14 @@ export function EmployeesMainTableToolbar(props: IEmployeesMainTableToolbarProps
         )}
         {numSelected > 0 ? (
           <Tooltip title="Usuń">
-            <IconButton>
-              <DeleteIcon onClick={onDeleteEmpClick} />
+            <IconButton onClick={onDeleteEmpClick} >
+              <DeleteIcon />
             </IconButton>
           </Tooltip>
         ) : (
-          <Tooltip title="Filtr">
-            <IconButton>
-              <FilterListIcon />
+          <Tooltip title="Dodaj pracownika">
+            <IconButton component={Link} to= {"/addEmployeeForm"}>
+              <AddIcon />
             </IconButton>
           </Tooltip>
         )}
