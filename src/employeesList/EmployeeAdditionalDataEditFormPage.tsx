@@ -8,19 +8,20 @@ import { Link, Params, useParams } from "react-router-dom";
 import { IEmployeeAdditionalData } from "./IEmployeeAdditionalData";
 import "./EmployeeAdditionalDataAddFormPage.css";
 
-export interface IEmployeeAdditionalDataProps {
+export interface IEmployeeAdditionalDataEditProps {
   employees: IEmployeesData[];
-  handleAddEmplData: (
+  handleUpdateEmplAdditionalData: (
     idPesel: string,
     newData: IEmployeeAdditionalData
   ) => void;
 }
 
-export function EmployeeAdditionalDataAddFormPage(
-  props: IEmployeeAdditionalDataProps
+export function EmployeeAdditionalDataEditFormPage(
+  props: IEmployeeAdditionalDataEditProps
 ): JSX.Element {
   const params: Readonly<Params<string>> = useParams();
   const idPesel: string = params.id || "";
+  const index = props.employees.findIndex((el) => el.pesel === idPesel);
 
   const validationSchema = yup.object({
     streetWithNumber: yup
@@ -52,17 +53,17 @@ export function EmployeeAdditionalDataAddFormPage(
 
   const formik = useFormik({
     initialValues: {
-      streetWithNumber: "",
-      postCode: "",
-      city: "",
-      phone: "",
-      email: "",
+      streetWithNumber: props.employees[index].streetWithNumber,
+      postCode: props.employees[index].postCode,
+      city: props.employees[index].city,
+      phone: props.employees[index].phone,
+      email: props.employees[index].email,
     },
 
     validationSchema: validationSchema,
 
     onSubmit: (values, actions) => {
-      props.handleAddEmplData(idPesel, values);
+      props.handleUpdateEmplAdditionalData(idPesel, values);
       actions.setSubmitting(false);
       actions.resetForm({
         values: {

@@ -6,7 +6,6 @@ import { EmployeeMainData } from "./EmployeeMainData";
 import { IEmployeesData } from "./EmployeesData";
 import "./EmployeeDetailsPage.css";
 
-
 export interface IEmployeeDetailsPageProps {
   employees: IEmployeesData[];
 }
@@ -18,23 +17,30 @@ export function EmployeeDetailsPage(
   const idPesel: string = params.id || "";
   const index = props.employees.findIndex((el) => el.pesel === idPesel);
 
-  function renderAdditionalData():JSX.Element {
-    if (props.employees[index].streetWithNumber || props.employees[index].city || props.employees[index].postCode || props.employees[index].phone || props.employees[index].email) {
-      return (
-        <EmployeeAdditionalData employeeAdditionalData={props.employees[index]}/>
-      );
+  function renderAdditionalData(): JSX.Element {
+    if (
+      props.employees[index].streetWithNumber ||
+      props.employees[index].city ||
+      props.employees[index].postCode ||
+      props.employees[index].phone ||
+      props.employees[index].email
+    ) {
+      return <EmployeeAdditionalData employees={props.employees[index]} />;
     }
-    return <Button color="secondary" component={Link} to= {`/addDataForm/${idPesel}`} > Dodaj dane</Button>
-    
+    return (
+      <Button color="secondary" component={Link} to={`/addDataForm/${idPesel}`}>
+        Dodaj dane
+      </Button>
+    );
   }
 
   return (
     <div className="EmployeeDetailsPage">
-      <BackButton to={"/employeesList"}/>
+      <BackButton to={"/employeesList"} />
       <h3>Dane szczegółowe</h3>
       <EmployeeMainData employeeMainData={props.employees[index]} />
-      <br/>
-      <br/>
+      <br />
+      <br />
       {renderAdditionalData()}
     </div>
   );

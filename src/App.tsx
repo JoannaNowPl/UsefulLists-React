@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { EmployeeAdditionalDataAddFormPage } from "./employeesList/EmployeeAdditionalDataAddForm.Page";
+import { EmployeeAdditionalDataEditFormPage } from "./employeesList/EmployeeAdditionalDataEditFormPage";
 import { EmployeeDetailsPage } from "./employeesList/EmployeeDetailsPage";
 import { EmployeeMainDataAddFormPage } from "./employeesList/EmployeeMainDataAddFormPage";
 import { EmployeeMainDataEditFormPage } from "./employeesList/EmployeeMainDataEditFormPage";
@@ -80,7 +81,7 @@ function App() {
     
   }
 
-  const handleAddEmplData = (
+  const handleEmplAdditionalData = (
     idPesel: string,
     newData: IEmployeeAdditionalData
   ):void => {
@@ -101,7 +102,7 @@ function App() {
     setEmployeesData(updatedEmployeesData);
   };
 
-
+ 
   return (
     <>
       <Routes>
@@ -127,7 +128,7 @@ function App() {
           element={
             <EmployeeAdditionalDataAddFormPage
               employees={[]}
-              handleAddEmplData={handleAddEmplData}
+              handleAddEmplData={handleEmplAdditionalData }
             />
           }
         />
@@ -139,6 +140,13 @@ function App() {
           path="/edtiEmployeeMainData/:id"
           element={<EmployeeMainDataEditFormPage employees={employeesData} handleEditEmplMainData={handleEditEmplMainData} />}
         />
+         <Route
+          path="/edtiEmployeeAdditionalData/:id"
+          element={<EmployeeAdditionalDataEditFormPage employees={employeesData} handleUpdateEmplAdditionalData={handleEmplAdditionalData } />}
+        />
+
+
+
 
 
       </Routes>

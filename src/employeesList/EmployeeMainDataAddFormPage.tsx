@@ -6,30 +6,27 @@ import { BackButton } from "../BackButton";
 import { IEmployeesData } from "./EmployeesData";
 import "./EmployeeAdditionalDataAddFormPage.css";
 import { IEmployeeMainData } from "./IEmployeeMainData";
+import { Link } from "react-router-dom";
 
 export interface IEmployeeMainDataProps {
   employees: IEmployeesData[];
-  handleAddEmpl: (
-    newEmpl: IEmployeeMainData
-  ) => void;
+  handleAddEmpl: (newEmpl: IEmployeeMainData) => void;
 }
 
 export function EmployeeMainDataAddFormPage(
   props: IEmployeeMainDataProps
 ): JSX.Element {
- 
-
   const validationSchema = yup.object({
     lastName: yup
       .string()
       .min(3, "Za mało znaków")
-      .max(30, "Za dużo znaków")
+      .max(20, "Za dużo znaków")
       .required("Wymagany"),
 
     firstName: yup
       .string()
-      .min(4, "Za mało znaków")
-      .max(10, "Za dużo znaków")
+      .min(3, "Za mało znaków")
+      .max(12, "Za dużo znaków")
       .required("Wymagany"),
 
     position: yup
@@ -43,8 +40,6 @@ export function EmployeeMainDataAddFormPage(
       .min(11, "Za mało znaków")
       .max(11, "Za dużo znaków")
       .required("Wymagany"),
-
-    
   });
 
   const formik = useFormik({
@@ -52,19 +47,20 @@ export function EmployeeMainDataAddFormPage(
       lastName: "",
       firstName: "",
       position: "",
-      pesel: ""     
+      pesel: "",
     },
 
     validationSchema: validationSchema,
 
-    onSubmit: (_values, actions) => {
+    onSubmit: (values, actions) => {
+      props.handleAddEmpl(values);
       actions.setSubmitting(false);
       actions.resetForm({
         values: {
-            lastName: "",
-            firstName: "",
-            position: "",
-            pesel: ""     
+          lastName: "",
+          firstName: "",
+          position: "",
+          pesel: "",
         },
       });
     },
@@ -83,13 +79,8 @@ export function EmployeeMainDataAddFormPage(
           label="Nazwisko"
           value={formik.values.lastName}
           onChange={formik.handleChange}
-          error={
-            formik.touched.lastName &&
-            Boolean(formik.errors.lastName)
-          }
-          helperText={
-            formik.touched.lastName && formik.errors.lastName
-          }
+          error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+          helperText={formik.touched.lastName && formik.errors.lastName}
         />
         <TextField
           fullWidth
@@ -121,14 +112,8 @@ export function EmployeeMainDataAddFormPage(
           error={formik.touched.pesel && Boolean(formik.errors.pesel)}
           helperText={formik.touched.pesel && formik.errors.pesel}
         />
-        
-        <Button
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-          onClick={() => props.handleAddEmpl(formik.values)}
-        >
+
+        <Button color="primary" variant="contained" fullWidth type="submit">
           Zatwierdź
         </Button>
       </form>

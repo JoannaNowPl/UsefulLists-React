@@ -6,7 +6,7 @@ import { BackButton } from "../BackButton";
 import { IEmployeesData } from "./EmployeesData";
 import "./EmployeeAdditionalDataAddFormPage.css";
 import { IEmployeeMainData } from "./IEmployeeMainData";
-import { Params, useParams } from "react-router-dom";
+import { Link, Params, useParams } from "react-router-dom";
 
 export interface IEmployeeMainDataEditProps {
   employees: IEmployeesData[];
@@ -48,15 +48,16 @@ export function EmployeeMainDataEditFormPage(
 
   const formik = useFormik({
     initialValues: {
-      lastName: `${props.employees[index].lastName}`,
-      firstName: `${props.employees[index].firstName}`,
-      position: `${props.employees[index].position}`,
-      pesel: `${props.employees[index].pesel}`,
+      lastName: props.employees[index].lastName,
+      firstName: props.employees[index].firstName,
+      position: props.employees[index].position,
+      pesel: props.employees[index].pesel,
     },
 
     validationSchema: validationSchema,
 
-    onSubmit: (_values, actions) => {
+    onSubmit: (values, actions) => {
+      props.handleEditEmplMainData(values);
       actions.setSubmitting(false);
       actions.resetForm({
         values: {
@@ -116,13 +117,7 @@ export function EmployeeMainDataEditFormPage(
           color="error"
         />
 
-        <Button
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-          onClick={() => props.handleEditEmplMainData(formik.values)}
-        >
+        <Button color="primary" variant="contained" fullWidth type="submit">
           Zatwierdź
         </Button>
       </form>
