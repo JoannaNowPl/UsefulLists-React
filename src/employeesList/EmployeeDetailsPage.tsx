@@ -3,8 +3,8 @@ import { Link, Params, useParams } from "react-router-dom";
 import { BackButton } from "../BackButton";
 import { EmployeeAdditionalData } from "./EmployeeAdditionalData";
 import { EmployeeMainData } from "./EmployeeMainData";
-import { IEmployeesData } from "./EmployeesData";
 import "./EmployeeDetailsPage.css";
+import { IEmployeesData } from "./IEmployeesData";
 
 export interface IEmployeeDetailsPageProps {
   employees: IEmployeesData[];

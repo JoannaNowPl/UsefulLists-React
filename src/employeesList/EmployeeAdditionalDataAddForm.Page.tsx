@@ -3,10 +3,10 @@ import * as yup from "yup";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { BackButton } from "../BackButton";
-import { IEmployeesData } from "./EmployeesData";
-import { Link, Params, useParams } from "react-router-dom";
+import { Params, useParams } from "react-router-dom";
 import { IEmployeeAdditionalData } from "./IEmployeeAdditionalData";
-import "./EmployeeAdditionalDataAddFormPage.css";
+import "./formPage.css";
+import { IEmployeesData } from "./IEmployeesData";
 
 export interface IEmployeeAdditionalDataProps {
   employees: IEmployeesData[];

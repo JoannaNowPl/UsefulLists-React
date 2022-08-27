@@ -6,10 +6,11 @@ import { EmployeeAdditionalDataEditFormPage } from "./employeesList/EmployeeAddi
 import { EmployeeDetailsPage } from "./employeesList/EmployeeDetailsPage";
 import { EmployeeMainDataAddFormPage } from "./employeesList/EmployeeMainDataAddFormPage";
 import { EmployeeMainDataEditFormPage } from "./employeesList/EmployeeMainDataEditFormPage";
-import { EmployeesData, IEmployeesData } from "./employeesList/EmployeesData";
+import { EmployeesData } from "./employeesList/EmployeesData";
 import EmployeesListPage from "./employeesList/EmployeesListPage";
 import { IEmployeeAdditionalData } from "./employeesList/IEmployeeAdditionalData";
 import { IEmployeeMainData } from "./employeesList/IEmployeeMainData";
+import { IEmployeesData } from "./employeesList/IEmployeesData";
 import { MainPage } from "./MainPage";
 
 function App() {
@@ -29,7 +30,10 @@ function App() {
     setSelected([]);
   };
 
-  const handleSelectClick = (event: React.MouseEvent<unknown>, id: string):void => {
+  const handleSelectClick = (
+    event: React.MouseEvent<unknown>,
+    id: string
+  ): void => {
     const selectedIndex = selected.indexOf(id);
     let newSelected: readonly string[] = [];
 
@@ -48,7 +52,7 @@ function App() {
     setSelected(newSelected);
   };
 
-  const handleDeleteEmpClick = ():void => {
+  const handleDeleteEmpClick = (): void => {
     const updatedEmployeesData = [];
     for (const el of employeesData) {
       if (selected.includes(el.pesel)) continue;
@@ -58,12 +62,18 @@ function App() {
     setSelected([]);
   };
 
-  const handleAddEmpl = (newEmpl:IEmployeeMainData):void => {
-    employeesData.push(newEmpl);
+  const handleAddEmpl = (newEmpl: IEmployeeMainData): void => {
+    const tableWithId = [];
+    for (const el of employeesData) tableWithId.push(el.pesel);
+    if (tableWithId.includes(newEmpl.pesel))
+      alert("Istnieje już pracownik z takim nr PESEL!");
+    else employeesData.push(newEmpl);
     setEmployeesData(employeesData);
-  }
+  };
 
-  const handleEditEmplMainData = (updatedEmplMainData:IEmployeeMainData):void => {
+  const handleEditEmplMainData = (
+    updatedEmplMainData: IEmployeeMainData
+  ): void => {
     const idPesel = updatedEmplMainData.pesel;
     const updatedEmployeesData = [];
     for (const el of employeesData) {
@@ -71,20 +81,19 @@ function App() {
         const updatedEmpl = { ...el };
         updatedEmpl.lastName = updatedEmplMainData.lastName;
         updatedEmpl.firstName = updatedEmplMainData.firstName;
-        updatedEmpl.position = updatedEmplMainData.position;        
+        updatedEmpl.position = updatedEmplMainData.position;
         updatedEmployeesData.push(updatedEmpl);
         continue;
       }
       updatedEmployeesData.push(el);
     }
     setEmployeesData(updatedEmployeesData);
-    
-  }
+  };
 
   const handleEmplAdditionalData = (
     idPesel: string,
     newData: IEmployeeAdditionalData
-  ):void => {
+  ): void => {
     const updatedEmployeesData = [];
     for (const el of employeesData) {
       if (el.pesel === idPesel) {
@@ -102,7 +111,6 @@ function App() {
     setEmployeesData(updatedEmployeesData);
   };
 
- 
   return (
     <>
       <Routes>
@@ -128,27 +136,37 @@ function App() {
           element={
             <EmployeeAdditionalDataAddFormPage
               employees={[]}
-              handleAddEmplData={handleEmplAdditionalData }
+              handleAddEmplData={handleEmplAdditionalData}
             />
           }
         />
-         <Route
+        <Route
           path="/addEmployeeForm"
-          element={<EmployeeMainDataAddFormPage employees={employeesData} handleAddEmpl={handleAddEmpl} />}
+          element={
+            <EmployeeMainDataAddFormPage
+              employees={employeesData}
+              handleAddEmpl={handleAddEmpl}
+            />
+          }
         />
-         <Route
+        <Route
           path="/edtiEmployeeMainData/:id"
-          element={<EmployeeMainDataEditFormPage employees={employeesData} handleEditEmplMainData={handleEditEmplMainData} />}
+          element={
+            <EmployeeMainDataEditFormPage
+              employees={employeesData}
+              handleEditEmplMainData={handleEditEmplMainData}
+            />
+          }
         />
-         <Route
+        <Route
           path="/edtiEmployeeAdditionalData/:id"
-          element={<EmployeeAdditionalDataEditFormPage employees={employeesData} handleUpdateEmplAdditionalData={handleEmplAdditionalData } />}
+          element={
+            <EmployeeAdditionalDataEditFormPage
+              employees={employeesData}
+              handleUpdateEmplAdditionalData={handleEmplAdditionalData}
+            />
+          }
         />
-
-
-
-
-
       </Routes>
     </>
   );

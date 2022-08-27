@@ -8,7 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import Tooltip from "@mui/material/Tooltip";
 import { Link } from "react-router-dom";
 import CreateIcon from "@mui/icons-material/Create";
-import { IEmployeesData } from "./EmployeesData";
+import { IEmployeesData } from "./IEmployeesData";
+
 export interface IEmployeeAdditionalDataProps {
   employees: IEmployeesData;
 }
