@@ -59,13 +59,23 @@ export const EmployeesData:IEmployeesData[] = [
         lastName: "Bukowska", 
         firstName: "Elżbieta", 
         position: "Pracownik Produkcji", 
-        pesel: "98050704598"
+        pesel: "98050704598",
+        streetWithNumber: "Kołobrzeska 20/10",
+        postCode: "80-422",
+        city: "Gdańsk",
+        phone: "600 303 588",
+        email: "e.bukk@gmail.com"
     },
     {
         lastName: "Dąbrowski", 
         firstName: "Jan", 
         position: "Pracownik Produkcji", 
-        pesel: "87051801555"
+        pesel: "87051801555",
+        streetWithNumber: "Przytulna 2/8",
+        postCode: "88-822",
+        city: "Gdynia",
+        phone: "722 288 333",
+        email: "janek.dabk@mail.pl"
     },
     {
         lastName: "Dąbrowska", 
