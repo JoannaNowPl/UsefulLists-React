@@ -1,8 +1,8 @@
 {
   "name": "useful-lists-app",
   "version": "0.1.0",
-  "private": true,
-  "homepage": "https://joannanowpl.github.io/UsefulLists-React/",
+  "private": false,
+  "homepage": "https://joannanowpl.github.io/UsefulLists-React",
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
