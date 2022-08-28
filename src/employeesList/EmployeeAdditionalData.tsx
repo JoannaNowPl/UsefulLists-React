@@ -26,31 +26,30 @@ export function EmployeeAdditionalData(
         >
           <TableHead>
             <TableRow>
-              <TableCell> ULICA I NR</TableCell>
-              <TableCell> KOD POCZTOWY</TableCell>
-              <TableCell> MIASTO</TableCell>
-              <TableCell> NR TELEFONU</TableCell>
-              <TableCell> E-MAIL</TableCell>
+              <TableCell> <span>ULICA I NR</span></TableCell>
+              <TableCell> <span>KOD POCZTOWY</span> </TableCell>
+              <TableCell> <span>MIASTO</span></TableCell>
+              <TableCell> <span>NR TELEFONU</span></TableCell>
+              <TableCell> <span>E-MAIL</span></TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
+            <TableRow hover>
               <TableCell>{props.employees.streetWithNumber}</TableCell>
               <TableCell>{props.employees.postCode}</TableCell>
               <TableCell>{props.employees.city}</TableCell>
               <TableCell>{props.employees.phone}</TableCell>
               <TableCell>{props.employees.email}</TableCell>
-              <TableCell>
+              <TableCell align="right">
                 <Tooltip title="Edytuj">
                   <IconButton
                     size="small"
                     aria-label="Edytuj"
                     component={Link}
                     to={`/edtiEmployeeAdditionalData/${props.employees.pesel}`}
-                    color="secondary"
                   >
-                    <CreateIcon color="disabled" fontSize="small" />
+                    <CreateIcon fontSize="small" />
                   </IconButton>
                 </Tooltip>
               </TableCell>

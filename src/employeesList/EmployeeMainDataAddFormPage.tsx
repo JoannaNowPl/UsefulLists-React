@@ -3,7 +3,6 @@ import * as yup from "yup";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { BackButton } from "../BackButton";
-import "./FormPage.css";
 import { IEmployeeMainData } from "./IEmployeeMainData";
 import { IEmployeesData } from "./IEmployeesData";
 
@@ -31,7 +30,7 @@ export function EmployeeMainDataAddFormPage(
     position: yup
       .string()
       .min(3, "Za mało znaków")
-      .max(20, "Za dużo znaków")
+      .max(30, "Za dużo znaków")
       .required("Wymagany"),
 
     pesel: yup
@@ -80,7 +79,7 @@ export function EmployeeMainDataAddFormPage(
           onChange={formik.handleChange}
           error={formik.touched.lastName && Boolean(formik.errors.lastName)}
           helperText={formik.touched.lastName && formik.errors.lastName}
-          className="form__textField"
+          margin="normal"
         />
         <TextField
           fullWidth
@@ -91,7 +90,7 @@ export function EmployeeMainDataAddFormPage(
           onChange={formik.handleChange}
           error={formik.touched.firstName && Boolean(formik.errors.firstName)}
           helperText={formik.touched.firstName && formik.errors.firstName}
-          className="form__textField"
+          margin="normal"
         />
         <TextField
           fullWidth
@@ -102,7 +101,7 @@ export function EmployeeMainDataAddFormPage(
           onChange={formik.handleChange}
           error={formik.touched.position && Boolean(formik.errors.position)}
           helperText={formik.touched.position && formik.errors.position}
-          className="form__textField"
+          margin="normal"
         />
         <TextField
           fullWidth
@@ -113,7 +112,7 @@ export function EmployeeMainDataAddFormPage(
           onChange={formik.handleChange}
           error={formik.touched.pesel && Boolean(formik.errors.pesel)}
           helperText={formik.touched.pesel && formik.errors.pesel}
-          className="form__textField"
+          margin="normal"
         />
 
         <Button color="primary" variant="contained" fullWidth type="submit">

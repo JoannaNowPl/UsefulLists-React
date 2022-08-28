@@ -19,14 +19,13 @@ import { EmployeesMainTableToolbar } from "./EmployeesMainTableToolbar";
 import { Link } from "react-router-dom";
 import { EmployeesMainTablePagination } from "./EmployeesMainTablePagination";
 import { BackButton } from "../BackButton";
-import "./EmployeesListPage.css";
 
 export interface IEmployeesListPageProps {
   employees: IEmployeeMainData[];
   selected: readonly string[];
   handleSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSelectClick: (event: React.MouseEvent<unknown>, id: string) => void;
-  onDeleteEmpClick:  () => void
+  onDeleteEmpClick: () => void;
 }
 
 export default function EmployeesListPage(props: IEmployeesListPageProps) {
@@ -51,8 +50,7 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
 
-  // This method is created for cross-browser compatibility, if you don't
-  // need to support IE11, you can use Array.prototype.sort() directly
+  // This method is created for cross-browser compatibility.
   function stableSort(
     array: readonly IEmployeeMainData[],
     comparator: (a: IEmployeeMainData, b: IEmployeeMainData) => number
@@ -73,7 +71,7 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] =
     React.useState<keyof IEmployeeMainData>("lastName");
-  
+
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -87,7 +85,6 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
     setOrderBy(property);
   };
 
-  
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -111,97 +108,97 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
       ? Math.max(0, (1 + page) * rowsPerPage - props.employees.length)
       : 0;
 
-  return (<div className="EmployeesListPage">
-    <BackButton to={"/"}/>
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <EmployeesMainTableToolbar
-          numSelected={props.selected.length}
-          onDeleteEmpClick={props.onDeleteEmpClick}
-        />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            <EmployeesMainTableHead
-              numSelected={props.selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={props.handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={props.employees.length}
-            />
-            <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                employees.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(props.employees, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.pesel);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+  return (
+    <div className="EmployeesListPage">
+      <BackButton to={"/"} />
+      <Box sx={{ width: "100%" }}>
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          <EmployeesMainTableToolbar
+            numSelected={props.selected.length}
+            onDeleteEmpClick={props.onDeleteEmpClick}
+          />
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              <EmployeesMainTableHead
+                numSelected={props.selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={props.handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={props.employees.length}
+              />
+              <TableBody>
+                {stableSort(props.employees, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row.pesel);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <TableRow hover>
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          onClick={(event) => props.handleSelectClick(event, row.pesel)}
-                          role="checkbox"
-                          aria-checked={isItemSelected}
-                          tabIndex={-1}
-                          key={row.pesel}
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell align="left">{row.lastName}</TableCell>
-                      <TableCell align="left">{row.firstName}</TableCell>
-                      <TableCell align="left">{row.position}</TableCell>
-                      <TableCell align="left">{row.pesel}</TableCell>
-                      <TableCell align="left">
-                        <IconButton
-                          size="small"
-                          aria-label="Dane szczegółowe"
-                          component={Link}
-                          to={`/employeeDetails/${row.pesel}`}
-                          color="secondary"
-                        >
-                          <DoubleArrowIcon fontSize="small" />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <EmployeesMainTablePagination
-          employees={props.employees}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
+                    return (
+                      <TableRow hover>
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            onClick={(event) =>
+                              props.handleSelectClick(event, row.pesel)
+                            }
+                            role="checkbox"
+                            aria-checked={isItemSelected}
+                            tabIndex={-1}
+                            key={row.pesel}
+                            color="primary"
+                            checked={isItemSelected}
+                            inputProps={{
+                              "aria-labelledby": labelId,
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell align="left">{row.lastName}</TableCell>
+                        <TableCell align="left">{row.firstName}</TableCell>
+                        <TableCell align="left">{row.position}</TableCell>
+                        <TableCell align="left">{row.pesel}</TableCell>
+                        <TableCell align="left">
+                          <IconButton
+                            size="small"
+                            aria-label="Dane szczegółowe"
+                            component={Link}
+                            to={`/employeeDetails/${row.pesel}`}
+                            color="secondary"
+                          >
+                            <DoubleArrowIcon fontSize="small" />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <EmployeesMainTablePagination
+            employees={props.employees}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </Paper>
+        <FormControlLabel
+          control={<Switch checked={dense} onChange={handleChangeDense} />}
+          label="Wąskie wiersze"
         />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Wąskie wiersze"
-      />
-   
-    </Box>
+      </Box>
     </div>
   );
 }

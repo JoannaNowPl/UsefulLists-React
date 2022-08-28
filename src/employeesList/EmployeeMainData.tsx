@@ -24,30 +24,40 @@ export function EmployeeMainData(props: IEmployeeMainDataProps): JSX.Element {
         >
           <TableHead>
             <TableRow>
-              <TableCell> NAZWISKO</TableCell>
-              <TableCell> IMIĘ </TableCell>
-              <TableCell> STANOWISKO </TableCell>
-              <TableCell> PESEL </TableCell>
+              <TableCell variant="head">
+                {" "}
+                <span>NAZWISKO</span>
+              </TableCell>
+              <TableCell variant="head">
+                {" "}
+                <span>IMIĘ</span>{" "}
+              </TableCell>
+              <TableCell variant="head">
+                {" "}
+                <span>STANOWISKO</span>{" "}
+              </TableCell>
+              <TableCell variant="head">
+                {" "}
+                <span>PESEL</span>{" "}
+              </TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
+            <TableRow hover>
               <TableCell>{props.employeeMainData.lastName}</TableCell>
               <TableCell>{props.employeeMainData.firstName}</TableCell>
               <TableCell>{props.employeeMainData.position}</TableCell>
               <TableCell>{props.employeeMainData.pesel}</TableCell>
-              <TableCell>
-                {" "}
+              <TableCell align="right">
                 <Tooltip title="Edytuj">
                   <IconButton
                     size="small"
                     aria-label="Edytuj"
                     component={Link}
                     to={`/edtiEmployeeMainData/${props.employeeMainData.pesel}`}
-                    color="secondary"
                   >
-                    <CreateIcon color="disabled" fontSize="small" />
+                    <CreateIcon fontSize="small" />
                   </IconButton>
                 </Tooltip>
               </TableCell>

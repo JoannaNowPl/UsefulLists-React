@@ -58,8 +58,8 @@ export const EmployeesData:IEmployeesData[] = [
     {
         lastName: "Bukowska", 
         firstName: "Elżbieta", 
-        position: "Pracownik Produkcji", 
-        pesel: "98050704598",
+        position: "Dyrektor", 
+        pesel: "75050704598",
         streetWithNumber: "Kołobrzeska 20/10",
         postCode: "80-422",
         city: "Gdańsk",

@@ -5,6 +5,7 @@ import { EmployeeAdditionalData } from "./EmployeeAdditionalData";
 import { EmployeeMainData } from "./EmployeeMainData";
 import "./EmployeeDetailsPage.css";
 import { IEmployeesData } from "./IEmployeesData";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 export interface IEmployeeDetailsPageProps {
   employees: IEmployeesData[];
@@ -28,8 +29,8 @@ export function EmployeeDetailsPage(
       return <EmployeeAdditionalData employees={props.employees[index]} />;
     }
     return (
-      <Button color="secondary" component={Link} to={`/addDataForm/${idPesel}`}>
-        Dodaj dane
+      <Button color="secondary" variant="outlined" component={Link} to={`/addDataForm/${idPesel}`}>
+        <span>Dodaj dane</span> <KeyboardArrowRightIcon fontSize="medium"/>
       </Button>
     );
   }

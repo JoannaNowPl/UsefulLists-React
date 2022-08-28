@@ -9,3 +9,23 @@
 div#root{
   margin: 20px 30px;
 }
+
+.MuiBox-root{
+  margin-top: 20px;
+}
+
+.MuiTableCell-head{
+  font-weight: 700;
+}	
+
+.MuiTableCell-head span{
+  font-weight: 700;
+}	
+
+.MuiIconButton-root{
+color: rgba(0, 0, 0, 0.26);
+}
+
+.MuiIconButton-root:hover{
+  color: #9c27b0;
+}

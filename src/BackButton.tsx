@@ -15,7 +15,7 @@ export function BackButton(props: IBackButtonProps): JSX.Element {
 			component={Link}
 			to={props.to}		
 			>
-			<KeyboardArrowLeftIcon fontSize="small"/>WSTECZ
+			<KeyboardArrowLeftIcon fontSize="medium"/>WSTECZ
 		</Button>
 	);
 }
