@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import { BackButton } from "../BackButton";
 import { Params, useParams } from "react-router-dom";
 import { IEmployeeAdditionalData } from "./IEmployeeAdditionalData";
-import "./formPage.css";
+import "./FormPage.css";
 import { IEmployeesData } from "./IEmployeesData";
 
 export interface IEmployeeAdditionalDataProps {
@@ -96,6 +96,7 @@ export function EmployeeAdditionalDataAddFormPage(
           helperText={
             formik.touched.streetWithNumber && formik.errors.streetWithNumber
           }
+          className="form__textField"
         />
         <TextField
           fullWidth
@@ -106,6 +107,7 @@ export function EmployeeAdditionalDataAddFormPage(
           onChange={formik.handleChange}
           error={formik.touched.postCode && Boolean(formik.errors.postCode)}
           helperText={formik.touched.postCode && formik.errors.postCode}
+          className="form__textField"
         />
         <TextField
           fullWidth
@@ -116,6 +118,7 @@ export function EmployeeAdditionalDataAddFormPage(
           onChange={formik.handleChange}
           error={formik.touched.city && Boolean(formik.errors.city)}
           helperText={formik.touched.city && formik.errors.city}
+          className="form__textField"
         />
         <TextField
           fullWidth
@@ -126,6 +129,7 @@ export function EmployeeAdditionalDataAddFormPage(
           onChange={formik.handleChange}
           error={formik.touched.phone && Boolean(formik.errors.phone)}
           helperText={formik.touched.phone && formik.errors.phone}
+          className="form__textField"
         />
         <TextField
           fullWidth
@@ -136,6 +140,7 @@ export function EmployeeAdditionalDataAddFormPage(
           onChange={formik.handleChange}
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
+          className="form__textField"
         />
 
         <Button color="primary" variant="contained" fullWidth type="submit">

@@ -3,7 +3,7 @@ import * as yup from "yup";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { BackButton } from "../BackButton";
-import "./formPage.css";
+import "./FormPage.css";
 import { IEmployeeMainData } from "./IEmployeeMainData";
 import { Params, useParams } from "react-router-dom";
 import { IEmployeesData } from "./IEmployeesData";
@@ -85,6 +85,7 @@ export function EmployeeMainDataEditFormPage(
           onChange={formik.handleChange}
           error={formik.touched.lastName && Boolean(formik.errors.lastName)}
           helperText={formik.touched.lastName && formik.errors.lastName}
+          className="form__textField"
         />
         <TextField
           fullWidth
@@ -95,6 +96,7 @@ export function EmployeeMainDataEditFormPage(
           onChange={formik.handleChange}
           error={formik.touched.firstName && Boolean(formik.errors.firstName)}
           helperText={formik.touched.firstName && formik.errors.firstName}
+          className="form__textField"
         />
         <TextField
           fullWidth
@@ -105,6 +107,7 @@ export function EmployeeMainDataEditFormPage(
           onChange={formik.handleChange}
           error={formik.touched.position && Boolean(formik.errors.position)}
           helperText={formik.touched.position && formik.errors.position}
+          className="form__textField"
         />
         <TextField
           fullWidth
@@ -115,6 +118,7 @@ export function EmployeeMainDataEditFormPage(
           error={formik.touched.pesel && Boolean(formik.errors.pesel)}
           helperText={formik.touched.pesel && formik.errors.pesel}
           color="error"
+          className="form__textField"
         />
 
         <Button color="primary" variant="contained" fullWidth type="submit">
