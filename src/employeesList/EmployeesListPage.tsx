@@ -121,8 +121,7 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
             <Table
               sx={{ minWidth: 750 }}
               aria-labelledby="tableTitle"
-              size={dense ? "small" : "medium"}
-            >
+              size={dense ? "small" : "medium"}>
               <EmployeesMainTableHead
                 numSelected={props.selected.length}
                 order={order}
@@ -166,8 +165,7 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
                             aria-label="Dane szczegółowe"
                             component={Link}
                             to={`/employeeDetails/${row.pesel}`}
-                            color="secondary"
-                          >
+                            color="secondary">
                             <DoubleArrowIcon fontSize="small" />
                           </IconButton>
                         </TableCell>
@@ -178,8 +176,7 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
                   <TableRow
                     style={{
                       height: (dense ? 33 : 53) * emptyRows,
-                    }}
-                  >
+                    }}>
                     <TableCell colSpan={6} />
                   </TableRow>
                 )}
