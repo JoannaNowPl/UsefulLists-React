@@ -138,7 +138,7 @@ export default function EmployeesListPage(props: IEmployeesListPageProps) {
                     const labelId = `enhanced-table-checkbox-${index}`;
 
                     return (
-                      <TableRow hover>
+                      <TableRow hover key={`row-${index}`}>
                         <TableCell padding="checkbox">
                           <Checkbox
                             onClick={(event) =>
